@@ -10,11 +10,13 @@ import matplotlib.pyplot as plot
 import bat
 import matplotlib.animation as animate
 
-num_of_bats = 10
+num_of_bats = 20
+num_of_hawks = 10
 num_of_iterations = 100
 
 habitat = []
 bats = []
+hawks = []
 
 file = open('habitat.csv', newline='')
 reader = csv.reader(file, quoting=csv.QUOTE_NONNUMERIC)
@@ -34,6 +36,11 @@ for i in range(num_of_bats):
     bats.append(bat.NewBat(habitat, bats))
     #testing: print(bats[i].colour)
     plot.scatter(bats[i].x, bats[i].y, c = bats[i].colour, s = 10)
+    
+# make hawk
+for j in range(num_of_hawks):
+    hawks.append(bat.NewHawk(habitat, hawks))
+    plot.scatter(hawks[i].x, hawks[i].y, s = 10)
            
 # move bat        
 def update(frame_number):
@@ -41,9 +48,11 @@ def update(frame_number):
     plot.imshow(habitat)
     for i in range (num_of_bats):
         bats[i].fly()
-        plot.scatter(bats[i].x, bats[i].y, c = bats[i].colour, s = 10,)
-        plot.show()
+        plot.scatter(bats[i].x, bats[i].y, c = bats[i].colour, s = 10)
         #testing: print("i work")
+        hawks[i].fly()
+        plot.scatter(hawks[i].x, hawks[i].y, s = 10)
+        plot.show()
     
 animation = animate.FuncAnimation(fig, update, interval=100, repeat=False, frames=num_of_iterations)
 

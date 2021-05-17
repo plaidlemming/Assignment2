@@ -58,10 +58,10 @@ class NewBat():
                         validMove = True
                 else:
                     print ("not in border wyd here bro")
-'''               
+              
 class NewHawk(NewBat):
     pass
-'''               
+               
 # make some bats avoid some habitat
 # red = woodland
 # green = woodland edge

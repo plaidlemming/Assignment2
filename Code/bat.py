@@ -27,8 +27,6 @@ class NewBat():
     def fly(self):
         if self.roosted == False:
             validMove = False
-     
-        
 
             while (validMove == False):
                 if random.random() < 0.5:
@@ -60,9 +58,10 @@ class NewBat():
                         validMove = True
                 else:
                     print ("not in border wyd here bro")
-               
-            
-                
+'''               
+class NewHawk(NewBat):
+    pass
+'''               
 # make some bats avoid some habitat
 # red = woodland
 # green = woodland edge
@@ -73,7 +72,13 @@ class NewBat():
 # check to see if the environment at that point is something the bat avoids
 # check to see if it's the roosting habitat for that bat
 
-
+# create hawks that spawn randomly and move in the same way as bats
+    # create a hawk 'derived' class from the bat 'base class'
+# create function to make hawks 'eat' bats
+    # loop through bats, calculate distance to nearest hawk
+    # if distance is less than 5(?) bat will be eaten
+    # assign it a 'dead' variable
+    # amend bat plotting loop - if 'dead' do not plot
 
 # setting roosting habitat in 'fly' function pre-while loop  
 # if not self.habitat[self.y][self.x] == self.species:          

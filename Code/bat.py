@@ -9,7 +9,7 @@ import random
 colour = ["white","red", "green", "blue"]
 
 class NewBat():
-    def __init__(self, habitat, bats):
+    def __init__(self, habitat, hawks):
         self.y = random.randint(0,99)
         self.x = random.randint(0,99)
         
@@ -18,7 +18,7 @@ class NewBat():
         
         self.roosted = False
         self.habitat = habitat
-        self.bats = bats
+        self.hawks = hawks
         self.species = random.randint(1,3)
         self.colour = colour[self.species]
         
@@ -39,14 +39,14 @@ class NewBat():
                 else:
                     newX = (self.x - 1)
             
-                print (newX, newY, self.habitat[newY][newX])
+                #print (newX, newY, self.habitat[newY][newX])
                 if 0 <= newY <= 99 and 0 <= newX <= 99:
                     if self.habitat[newY][newX] == self.species:
                         
                         self.y = newY
                         self.x = newX
                         
-                        print ("new home who dis")
+                        #print ("new home who dis")
                         
                         self.roosted = True
                         validMove = True
@@ -54,14 +54,14 @@ class NewBat():
                         self.y = newY
                         self.x = newX
                         
-                        print ("inside border not home tho :(")
+                        #print ("inside border not home tho :(")
                         validMove = True
-                else:
-                    print ("not in border wyd here bro")
-'''               
-class NewHawk(NewBat):
-    pass
-'''               
+                #else:
+                    #print ("not in border wyd here bro")
+
+
+
+
 # make some bats avoid some habitat
 # red = woodland
 # green = woodland edge
@@ -73,7 +73,7 @@ class NewHawk(NewBat):
 # check to see if it's the roosting habitat for that bat
 
 # create hawks that spawn randomly and move in the same way as bats
-    # create a hawk 'derived' class from the bat 'base class'
+    # create a hawk 'derived' class from the bat 'base class' - didn't work lol who do i think i am
 # create function to make hawks 'eat' bats
     # loop through bats, calculate distance to nearest hawk
     # if distance is less than 5(?) bat will be eaten

@@ -1,1 +1,0 @@
-Alive Bats: 1 Alive Hawks: 1 Infected Bats: 1

@@ -16,16 +16,16 @@ import matplotlib.animation as animate
 
 # Assign values to variables.
 habitat_size = 100       # Create variable and assign it a habitat size corresponding to the inputted habitat csv.
-num_of_iterations = 10  # Create variable and assign it a number of iterations for the model.
+num_of_iterations = 50  # Create variable and assign it a number of iterations for the model.
 
-num_of_bats = 50        # Create variable and assign it a number of bats.
+num_of_bats = 60        # Create variable and assign it a number of bats.
 num_of_hawks = 30        # Create variable and assign it a number of hawks.
 
-starting_infected_bats = 3 # Create variable and assign it a number of bats to start with an infection.
+starting_infected_bats = 20 # Create variable and assign it a number of bats to start with an infection.
 infection_distance = 5  # Create variable and assign it a distance at which bats transmit infection.
 
 
-# Create variables for the habitat, bats and hawks.
+# Create empty lists for the habitat, bats and hawks.
 habitat = []
 bats = []
 hawks = []
@@ -35,7 +35,7 @@ file = open('habitat.csv', newline='')
 # Parse the file and save to a "reader" variable.
 reader = csv.reader(file, quoting=csv.QUOTE_NONNUMERIC)
 
-# Iterate over the "reader" variable to create a 2D list.
+# Iterate over the "reader" variable and save it to "habitat".
 for row in reader:
     rowlist = []		
     for value in row:
@@ -48,7 +48,7 @@ fig = plot.figure(figsize=(habitat_size, habitat_size),facecolor="purple") # Set
 ax = fig.add_axes([0, 0, 1, 1]) # Add axes and assign them the variable "ax".
 
     
-# Make the bats by iterating over the number of bats variable and appending the "bats" variable.
+# Make the bats by iterating over the number of bats variable and appending the new instant of the bat to the "bats" variable.
 for i in range(num_of_bats):
     # Make the specified number of bats "infected" with a disease.
     if i < starting_infected_bats:
@@ -56,11 +56,11 @@ for i in range(num_of_bats):
     # The rest of the bats are not infected.
     else:
         bats.append(bat.NewBat(habitat, habitat_size, hawks, bats, infection_distance))
-    # Plot all of the bats.
+    # Plot all of the bats. The colour of each bat species is set in the bat class and referenced here.
     plot.scatter(bats[i].x, bats[i].y, c = bats[i].colour, s = 10)
 
 
-# Make the hawks by interating over the number of hawks variable and appending the "hawks" variable.
+# Make the hawks by interating over the number of hawks variable and appending the new instant of the hawk to the "hawks" variable.
 for j in range(num_of_hawks):
     hawks.append(hawk.NewHawk(habitat, habitat_size, bats))
     # Plot the hawks. 
@@ -71,7 +71,7 @@ def update(frame_number):
     fig.clear()
     plot.imshow(habitat)
     
-    # Iterate over each bat, running the "bats.update" function to make them fly, move to a valid tile, roost and pass on the infection.
+    # Iterate over each bat, running the "bats.update" function.
     for i in range (num_of_bats):
         bats[i].update()
         # print(bats[i].x, bats[i].y) # Used to check the bats' location was updating.
@@ -80,14 +80,15 @@ def update(frame_number):
             plot.scatter(bats[i].x, bats[i].y, c = bats[i].colour, s = 10,)
             plot.show()
 
-    # Iterate over each hawk, running the "hawks.update" function to make them fly, and find and eat bats.        
+    # Iterate over each hawk, running the "hawks.update" function.        
     for j in range(num_of_hawks):
         hawks[j].update()
         # Only show the hawks on the plot if they are alive.
         if hawks[j].alive:
             plot.scatter(hawks[j].x, hawks[j].y, c = "black", s = 10)
             plot.show()
-    # Print the statistics at the last iteration of the model.     
+            
+    # Print the statistics at the final iteration of the model.     
     if frame_number == num_of_iterations - 1:
         print_stats()
 
@@ -99,7 +100,7 @@ animation = animate.FuncAnimation(fig, update, interval=150, repeat=False, frame
 #     update(1)
 #     print(i)
 
-# Create the "print_stats" function to print the statistics at the last iteration.
+# Create the "print_stats" function to print the statistics at the final iteration.
 def print_stats():
     alive_bats = 0              # Create variable and assign it the number of alive bats at the start of counting.
     alive_hawks = 0             # Create variable and assign it the number of alive hawks at the start of counting.
@@ -133,23 +134,3 @@ def print_stats():
         txt.write(initial_conditions)
         txt.write(final_conditions)
         txt.write("\n")
-
-
-'''
-def run():
-    pass
-    canvas.show()
-root = tkinter.Tk() 
-root.wn_title("Bats and Hawks")
-    
-canvas = matplotlib.backends.backend_tkagg.FigureCanvasTkAgg(fig, master=root)
-canvas._tkcanvas.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
-    
-menu_bar = tkinter.Menu(root)
-root.config(menu=menu_bar)
-model_menu = tkinter.Menu(menu_bar)
-menu_bar.add_cascade(label="Model", menu=model_menu)
-model_menu.add_command(label="Run model", command=run) 
-
-tkinter.mainloop()
-'''

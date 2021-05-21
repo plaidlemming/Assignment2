@@ -22,18 +22,18 @@ class NewBat():
         self.roosted = False                # Set the default state of bats to be not roosted.
         self.species = random.randint(1,3)  # Assign each bat a random number between 1 and 3 correspnding to 3 different species.
         self.colour = colour[self.species]  # Assign each bat a colour corresponding to it's species.
-        self.infected = infected            # Create a variable to save a list of 'infected' bats to.
+        self.infected = infected            # Create a variable to save whether or not this bat is infected.
         self.infection_distance = infection_distance # Create a link to the "infection_distance" variable.
         self.y = random.randint(0, habitat_size - 1) # Set random y coordinate of the bat to within the habitat size.
         self.x = random.randint(0, habitat_size - 1) # Set random x coordinate of the bat to within the habitat size.
         
         # Testing to find value of habitat underneath bat (for roosting).
         # print(self.habitat[self.y][self.x])
-    # Create function to make bats fly, move to a valid tile and pass on infection.
+    # Create function to make bats fly, move to a valid tile and get infected by other bats if within a given distance.
     def update(self):
         self.fly()
         
-        # Iterate over each bat, if it is alive and infected, and the distance is greater than or equal to the "infection_distance", infect nearby bat.
+        # Iterate over each bat, if it is alive and infected, and the distance is greater than or equal to the "infection_distance", infect this bat.
         # Could split this out in to a "check_for_infection" function
         for bat in self.bats:
             if bat.infected == True:
@@ -85,57 +85,13 @@ class NewBat():
             # Testing that no bats are travelling outside of the plot.
             # else:
                 # print ("not in border why am I here")
-    # Creating a function to calculate the distance between the current bat and the others.
+                
+    # Create a function to calculate the distance between the current bat and the others.
     def distance_between(self, bats):
         return (((self.x - bats.x)**2) + ((self.y - bats.y)**2))**0.5
         
 
-
-
-
-
-
-# make some bats avoid some habitat
+# Make each species have a preference for it's habitat.
 # red = woodland
 # green = woodland edge
 # blue = building
-
-# chose a new x and y value
-# check to see if it's in the bounds of the map
-# check to see if the environment at that point is something the bat avoids
-# check to see if it's the roosting habitat for that bat
-
-# create hawks that spawn randomly and move in the same way as bats
-    # create a hawk 'derived' class from the bat 'base class' - didn't work lol who do i think i am
-# create function to make hawks 'eat' bats
-    # loop through bats, calculate distance to nearest hawk
-    # if distance is less than 5(?) bat will be eaten
-    # assign it a 'dead' variable
-    # amend bat plotting loop - if 'dead' do not plot
-
-# setting roosting habitat in 'fly' function pre-while loop  
-# if not self.habitat[self.y][self.x] == self.species:          
-''' implement later
-def getx(self):
-    return self._x
-
-    
-    def setx(self, VALUE):
-        self._x = VALUE
-        
-    def delx(self):
-        del self._x
-        
-    #x = property(getx, setx, delx, "i'm the x property")
-    
-    def gety(self):
-        return self._y
-    
-    def sety(self, VALUE):
-        self._y = VALUE
-        
-    def dely(self):
-        del self._x
-        
-    #y = property(gety, sety, dely, "i'm the y property")
-'''

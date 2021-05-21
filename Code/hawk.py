@@ -17,7 +17,7 @@ class NewHawk():
         self.y = 0              # Set the starting y coordinate to 0 (this is changed in the "find_habitat" function).
         self.x = 0              # Set the starting x coordinate to 0 (this is changed in the "find_habitat" function).
         self.alive = True       # Set the default state of the hawks as alive.
-        self.hunting_ground = 0 # Set the habitat type that the hawks stay in.
+        self.hunting_ground = 0 # Set the habitat type that the hawks are spawned in and stay in.
         self.find_habitat(self.hunting_ground) # Run the find habitat function to find initial habitat of new hawk.
         
     # Create update function to run the "fly" and "find_and_eat_bats" functions.    
@@ -59,7 +59,7 @@ class NewHawk():
            
            # If the hawk and bat are at the same location, it can be eaten.
            if self.x == bat.x and self.y == bat.y:
-                if random.random() < 0.7:
+                if random.random() < 0.7: # This is where the 'success rate' is set.
                    bat.alive = False
                    # Testing that the hawks are 'eating' the bats.
                    # print(bat.alive,"yummy bat")
@@ -70,7 +70,7 @@ class NewHawk():
                        # Testing that the hawks are 'dying'.
                        #print(self.alive, "oh no, I died")
             
-    # Choose new coordinates and check what habitat type it is, if not the chosen habitat type in self.hunting_ground, choose another set until it is, then move there
+    # Choose new coordinates and the habitat at that location, if not the chosen habitat type in self.hunting_ground, choose another set until it is, then move there
     def find_habitat(self, habitat_type):
         validMove = False        
         
